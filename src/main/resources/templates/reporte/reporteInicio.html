@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-image: url(/img/fondoInicio692.jpg);
+        }
+    </style>
+    <title >Travel trip</title>
+</head>
+<body>
+<div class="container px-4 py-5">
+  <h1 class="pb-2 border-bottom" style="text-align: center; background-color: white" >Reportes y Dashboards</h1>
+    <div class="container text-center mt-5">
+        <div class="row mt-2">
+            <div class="col-3">
+            </div>
+            <div class="col-6 card mt-5 bg-black">
+
+                <div class="card-body aqua-gradient">
+
+
+                    <h3 class="text-white mt-2">Menu Reportes</h3>
+
+
+                    <div class="row">
+                        <a class="btn btn-success" th:href="@{'/reportes/salario'}">Salario</a>
+                    </div>
+                    </br>
+                    <div class="row">
+                        <a class="btn btn-success" th:href="@{'/admin/nuevoSeguridad'}">SalarioxDpto</a>
+                    </div>
+                    </br>
+                    <div class="row">
+                        <a class="btn btn-success" th:href="@{'/admin/nuevoSeguridad'}">Tentativa Aumento</a>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-3">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
