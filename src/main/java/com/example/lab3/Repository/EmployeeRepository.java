@@ -5,12 +5,16 @@ import com.example.lab3.Entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
+    @Modifying
+    @Transactional
+    @Query(value="update employees set password=SHA2(?1,256) where employee_id=?2 ",nativeQuery = true)
+    void GuardarContrasena(String contrasena,int id);
     @Query(value="SELECT e.employee_id, e.first_name, e.last_name, e.email, j.job_title, e.salary, \n" +
             "\t\t l.city, d.department_name\n" +
             "FROM employees e\n" +
@@ -28,6 +32,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(nativeQuery = true,
             value = "UPDATE `hr`.`employees` SET `manager_id` = ?1, `job_id` = ?2 WHERE (`employee_id` = ?3);")
     void actualizarEmpleado(String managerid, int jobid, int empleadoid);
+
+
+
+    @Query(value="SELECT * FROM employees group by manager_id",nativeQuery = true)
+    List <Employee> buscaJefes();
+
 
 
 }
