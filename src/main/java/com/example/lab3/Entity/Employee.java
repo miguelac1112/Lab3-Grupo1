@@ -3,6 +3,8 @@ package com.example.lab3.Entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -49,6 +51,7 @@ public class Employee {
 
     @Column(name = "enabled")
     private Integer enabled;
+
 
     public Integer getId() {
         return id;
