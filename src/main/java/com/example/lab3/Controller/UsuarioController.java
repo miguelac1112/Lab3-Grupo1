@@ -1,6 +1,8 @@
 package com.example.lab3.Controller;
 
+import com.example.lab3.Entity.Department;
 import com.example.lab3.Entity.Employee;
+import com.example.lab3.Repository.DepartmentRepository;
 import com.example.lab3.Repository.EmployeeRepository;
 import com.example.lab3.Repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class UsuarioController {
     @Autowired
     JobRepository jobRepository;
 
+    @Autowired
+    DepartmentRepository departmentRepository;
     @GetMapping("/listar")
     String listaUsuario(Model model){
         model.addAttribute("listaEmpleados",employeeRepository.obtenerEmpleados());
@@ -37,9 +41,33 @@ public class UsuarioController {
     }
 
 
+
+    @GetMapping(value={"/nuevo"})
+    public String nuevoEmployee(Model model){
+        model.addAttribute("listaJefes",employeeRepository.buscaJefes());
+        model.addAttribute("listaJobs",jobRepository.findAll());
+        model.addAttribute("listaDepartment",departmentRepository.findAll());
+
+        return "Empleados/newForm";
+    }
+
+    @PostMapping(value = {"/guardar"})
+    public String guardarEmployee(Employee employee, RedirectAttributes attr){
+        employeeRepository.save(employee);
+        employeeRepository.GuardarContrasena(employee.getPassword(),employee.getId());
+        if(employee.getId()!=0){
+            attr.addFlashAttribute("guardado","El empleado se ha editado exitosamente");
+        }else{
+            attr.addFlashAttribute("guardado","El empleado se ha creado exitosamente");
+        }
+        return "redirect:/empleado";
+    }
+
     @GetMapping("/edit")
-    public String editarUsuario(Model model,
+    public String editarEmpleado(Model model,
                                       @RequestParam("id") int id) {
+
+        System.out.println(id);
 
         Optional<Employee> optionalEmployee = employeeRepository.findById(id);
 
@@ -50,22 +78,22 @@ public class UsuarioController {
             model.addAttribute("listaJefe",employeeRepository.findAll());
             return "Empleados/editFrm";
         } else {
-            return "redirect:/Empleados/list";
+            return "redirect:/empleado/listar";
         }
     }
 
     @PostMapping("/actualizar")
-    public String guardarNuevoTransportista(Employee employee,
+    public String actualizarEmpleado(@RequestParam("id") int id,@RequestParam("idmanager") int idmanager,@RequestParam("idjob") int idjob,
                                             RedirectAttributes redirectAttributes) {
 
         String texto;
         texto = "Transportista actualizado exitosamente";
 
-        employeeRepository.save(employee);
+        employeeRepository.actualizarEmpleado(idmanager,idjob,id);
 
         redirectAttributes.addFlashAttribute("msg", texto);
 
-        return "redirect:/Empleados/list";
+        return "redirect:/empleado/listar";
     }
 
 

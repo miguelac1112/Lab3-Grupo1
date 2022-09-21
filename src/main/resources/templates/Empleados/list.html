@@ -49,7 +49,8 @@
                 <td th:text="${employee.getJob_Title()}"></td>
                 <td th:text="${employee.getDepartment_name()}"></td>
                 <td th:text="${employee.getcity()}"></td>
-                <td><a class="btn btn-primary">Editar</a>
+                <td><a class="btn btn-primary"
+                       th:href="@{'/empleado/edit' + '?id=' + ${employee.getEmployee_id()}}">Editar</a>
                 </td>
                 <td><a class="btn btn-danger">Borrar</a>
                 </td>
