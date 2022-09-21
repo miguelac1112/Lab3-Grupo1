@@ -10,7 +10,7 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     @Query(value="SELECT e.employee_id, e.first_name, e.last_name, e.email, j.job_title, e.salary, \n" +
-            "\t\tconcat(m.first_name, \" \", m.last_name) 'jefe', d.department_name\n" +
+            "\t\t l.city, d.department_name\n" +
             "FROM employees e\n" +
             "\tinner join jobs j on (e.job_id = j.job_id)\n" +
             "    inner join departments d on (e.department_id = d.department_id)\n" +

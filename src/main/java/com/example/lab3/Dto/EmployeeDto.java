@@ -7,6 +7,6 @@ public interface EmployeeDto {
     String getEmail();
     String getJob_Title();
     Double getSalary();
-    String getJefe();
+    String getcity();
     String getDepartment_name();
 }
