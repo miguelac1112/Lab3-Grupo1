@@ -10,7 +10,7 @@
         <main>
             <div class="container px-4 py-5">
                 <h1 class="pb-2 mb-3 border-bottom">Editar Empleado</h1>
-                <form method="post" th:action="@{'/Empleado/actualizar'}" th:object="${employee}" class="mt-2">
+                <form method="post" th:action="@{'/empleado/actualizar'}" th:object="${empleado}" class="mt-2">
                     <input th:field="*{id}" name="id" type="hidden"/>
                     <div class="mb-3">
                         <label class="form-label">Nombre del Empleado</label>
@@ -32,7 +32,7 @@
                     <input th:field="*{hireDate}" name="hireDate" type="hidden"/>
                     <div class="mb-3">
                         <label class="form-label">Trabajo</label>
-                        <select class="form-select" th:field="*{job}">
+                        <select class="form-select" th:field="*{job}" name="idjob">
                             <option th:each="job : ${listaTrabajo}" th:text="${job.getJobTitle()}"
                                     th:value="${job.getId()}"></option>
                         </select>
@@ -44,18 +44,22 @@
                     <input th:field="*{commissionPct}" name="commissionPct" type="hidden"/>
                     <div class="mb-3">
                         <label class="form-label">Jefe</label>
-                        <select class="form-select" th:field="*{manager}">
+                        <select class="form-select" th:field="*{manager}" name="idmanager">
                             <option th:each="manager : ${listaJefe}" th:text="${manager.getFirstName()+' '+manager.getLastName()}"
                                     th:value="${manager.getId()}"></option>
                         </select>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">Sueldo</label>
+                        <input th:field="*{salary}" type="text" class="form-control" disabled>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Departamento</label>
-                        <input th:field="*{department.getDepartmentName()}" th:value="*{department.getId()}" type="text" class="form-control" disabled>
+                        <input th:text="*{department.getDepartmentName()}" th:value="*{department.getId()}" type="text" class="form-control" disabled>
                     </div>
                     <input th:field="*{enabled}" name="enabled" type="hidden"/>
-                    <a th:href="@{'/product'}" class="btn btn-danger">Cancelar</a>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <a th:href="@{'/empleado/listar'}" class="btn btn-danger">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
                 </form>
             </div>
         </main>
