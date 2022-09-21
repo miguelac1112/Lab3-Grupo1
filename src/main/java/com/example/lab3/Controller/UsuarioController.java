@@ -64,8 +64,10 @@ public class UsuarioController {
     }
 
     @GetMapping("/edit")
-    public String editarUsuario(Model model,
+    public String editarEmpleado(Model model,
                                       @RequestParam("id") int id) {
+
+        System.out.println(id);
 
         Optional<Employee> optionalEmployee = employeeRepository.findById(id);
 
@@ -76,22 +78,22 @@ public class UsuarioController {
             model.addAttribute("listaJefe",employeeRepository.findAll());
             return "Empleados/editFrm";
         } else {
-            return "redirect:/Empleados/list";
+            return "redirect:/empleado/listar";
         }
     }
 
     @PostMapping("/actualizar")
-    public String guardarNuevoTransportista(Employee employee,
+    public String actualizarEmpleado(@RequestParam("id") int id,@RequestParam("idmanager") int idmanager,@RequestParam("idjob") int idjob,
                                             RedirectAttributes redirectAttributes) {
 
         String texto;
         texto = "Transportista actualizado exitosamente";
 
-        employeeRepository.save(employee);
+        employeeRepository.actualizarEmpleado(idmanager,idjob,id);
 
         redirectAttributes.addFlashAttribute("msg", texto);
 
-        return "redirect:/Empleados/list";
+        return "redirect:/empleado/listar";
     }
 
 

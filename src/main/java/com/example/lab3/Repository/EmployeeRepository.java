@@ -3,17 +3,11 @@ package com.example.lab3.Repository;
 import com.example.lab3.Dto.EmployeeDto;
 import com.example.lab3.Entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
-    @Modifying
-    @Transactional
-    @Query(value="update employees set password=SHA2(?1,256) where employee_id=?2 ",nativeQuery = true)
-    void GuardarContrasena(String contrasena,int id);
 
     @Query(value="SELECT e.employee_id, e.first_name, e.last_name, e.email, j.job_title, e.salary, \n" +
             "\t\t l.city, d.department_name\n" +
@@ -26,6 +20,14 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
             "    inner join employees m on (e.manager_id = m.employee_id)\n" +
             "order by employee_id;\n",nativeQuery = true)
     List<EmployeeDto> obtenerEmpleados();
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,
+            value = "UPDATE `hr`.`employees` SET `manager_id` = ?1, `job_id` = ?2 WHERE (`employee_id` = ?3);")
+    void actualizarEmpleado(int managerid, int jobid, int empleadoid);
+
+
 
     @Query(value="SELECT * FROM employees group by manager_id",nativeQuery = true)
     List <Employee> buscaJefes();
