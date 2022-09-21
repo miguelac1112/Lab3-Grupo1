@@ -83,7 +83,9 @@ public class UsuarioController {
     }
 
     @PostMapping("/actualizar")
-    public String actualizarEmpleado(@RequestParam("id") int id,@RequestParam("idmanager") int idmanager,@RequestParam("idjob") int idjob,
+    public String actualizarEmpleado(@RequestParam("id") int id,
+                                     @RequestParam("idmanager") String idmanager,
+                                     @RequestParam("idjob") int idjob,
                                             RedirectAttributes redirectAttributes) {
 
         String texto;
