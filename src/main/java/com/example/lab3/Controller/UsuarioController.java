@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UsuarioController {
     @GetMapping("")
     String listaUsuario(){
-        return "Empleados/newForm";
+        return "Empleados/NewForm";
     }
 }
